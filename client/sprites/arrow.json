@@ -1,0 +1,17 @@
+{
+  "id": "arrow",
+  "width": 19,
+  "height": 19,
+  "animations": {
+    "idle_down": {
+      "length": 1,
+      "row": 0
+    },
+    "idle_up": {
+      "length": 1,
+      "row": 0
+    }
+  },
+  "offset_x": -2,
+  "offset_y": -2
+}

@@ -1,0 +1,109 @@
+#skill-attack::before,
+#skill-defense::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+}
+
+#skill-attack.disabled::before,
+#skill-defense.disabled::before {
+  filter: grayscale(100%);
+}
+
+@media screen and (min-width: 1501px) {
+  #skill-attack,
+  #skill-defense {
+    width: 42px;
+    height: 42px;
+  }
+  #skill-attack::before,
+  #skill-defense::before {
+    background-position: 0 -84px;
+    background-image: url(../img/3/skills.png);
+  }
+
+  #skill-defense.skill-heal::before {
+    background-position: 0 0;
+  }
+  #skill-defense.skill-defense::before {
+    background-position: -42px 0;
+  }
+  #skill-defense.skill-resistances::before {
+    background-position: -84px 0;
+  }
+  #skill-attack.skill-magic::before {
+    background-position: -0 -42px;
+  }
+  #skill-attack.skill-flame::before {
+    background-position: -42px -42px;
+  }
+  #skill-attack.skill-lightning::before {
+    background-position: -84px -42px;
+  }
+  #skill-attack.skill-cold::before {
+    background-position: -126px -42px;
+  }
+  #skill-attack.skill-poison::before {
+    background-position: -168px -42px;
+  }
+}
+
+@media screen and (max-width: 1500px), screen and (max-height: 870px) {
+  #skill-attack,
+  #skill-defense {
+    width: 28px;
+    height: 28px;
+  }
+
+  #skill-attack::before,
+  #skill-defense::before {
+    background-position: 0 -56px;
+    background-image: url(../img/2/skills.png);
+  }
+
+  #skill-defense.skill-heal::before {
+    background-position: 0 0;
+  }
+  #skill-defense.skill-defense::before {
+    background-position: -28px 0;
+  }
+  #skill-defense.skill-resistances::before {
+    background-position: -56px 0;
+  }
+  #skill-attack.skill-magic::before {
+    background-position: 0 -28px;
+  }
+  #skill-attack.skill-flame::before {
+    background-position: -28px -28px;
+  }
+  #skill-attack.skill-lightning::before {
+    background-position: -56px -28px;
+  }
+  #skill-attack.skill-cold::before {
+    background-position: -84px -28px;
+  }
+  #skill-attack.skill-poison::before {
+    background-position: -112px -28px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+}
+
+.skill-timeout {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 0, 0, 0.4);
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.skill-timeout.active {
+  opacity: 1;
+  width: 0%;
+}

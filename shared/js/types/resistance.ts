@@ -1,0 +1,312 @@
+import _ from "lodash";
+
+import { getAttackSpeedBonusFromStringMap, getWeaponWeightbyKind } from "../types/weight";
+
+export const PLAYER_MAX_RESISTANCES = 90;
+export const PLAYER_MAX_ATTACK_SPEED = 50;
+export const DEFAULT_ATTACK_SPEED = 800;
+export const DEFAULT_ATTACK_ANIMATION_SPEED = 50;
+export const PLAYER_MAX_EXTRA_GOLD = 75;
+export const PLAYER_MAX_MAGIC_FIND = 75;
+
+export const mobEnchant: { [key: string]: Enchant[] } = {
+  cowking: ["lightning", "curse-resistance"],
+  minotaur: ["cold"],
+  rat3: ["poison"],
+  golem: ["physical", "stoneskin"],
+  snake3: ["poison"],
+  snake4: ["flame"],
+  spider: ["poison"],
+  spider2: ["magic"],
+  spiderqueen: ["poison", "curse-health"],
+  butcher: ["physical"],
+  worm: ["physical", "curse-health"],
+  oculothorax: [],
+  kobold: [],
+  skeletontemplar: ["poison", "cold"],
+  skeletontemplar2: ["magic", "flame"],
+  ghost: [],
+  skeleton4: [],
+  wraith2: ["spectral"],
+  skeletonberserker: ["physical"],
+  skeletonarcher: [],
+  shaman: [],
+  deathbringer: ["spectral", "curse-health"],
+  deathangel: ["spectral", "curse-resistance"],
+};
+
+export const mobResistance = {
+  boss: {
+    magicResistance: 50,
+    flameResistance: 50,
+  },
+  necromancer: {
+    magicResistance: 50,
+    flameResistance: 50,
+    lightningResistance: 50,
+    coldResistance: 100,
+  },
+  cowking: {
+    lightningResistance: 100,
+    flameResistance: 20,
+  },
+  minotaur: {
+    magicResistance: 80,
+    flameResistance: 100,
+    lightningResistance: 100,
+  },
+  rat3: {
+    poisonResistance: 100,
+  },
+  wraith2: {
+    magicResistance: 30,
+    flameResistance: 50,
+    lightningResistance: 60,
+    coldResistance: 30,
+  },
+  ghost: {
+    magicResistance: 60,
+    flameResistance: 20,
+    lightningResistance: 30,
+    coldResistance: 30,
+  },
+  skeleton4: {
+    lightningResistance: 65,
+    coldResistance: 45,
+  },
+  mage: {
+    magicResistance: 50,
+    flameResistance: 50,
+    lightningResistance: 50,
+    coldResistance: 50,
+    poisonResistance: 50,
+  },
+  spider: {
+    poisonResistance: 100,
+  },
+  spider2: {
+    magicResistance: 100,
+  },
+  spiderqueen: {
+    magicResistance: 50,
+    flameResistance: 60,
+    lightningResistance: 70,
+    coldResistance: 25,
+    poisonResistance: 100,
+  },
+  butcher: {
+    magicResistance: 50,
+    flameResistance: 100,
+    lightningResistance: 70,
+    coldResistance: 25,
+    poisonResistance: 40,
+  },
+  snake3: {
+    poisonResistance: 100,
+  },
+  snake4: {
+    flameResistance: 100,
+  },
+  oculothorax: {
+    magicResistance: 40,
+    flameResistance: 100,
+    lightningResistance: 80,
+    coldResistance: 40,
+  },
+  kobold: {
+    magicResistance: 40,
+    flameResistance: 60,
+    lightningResistance: 80,
+    coldResistance: 20,
+  },
+  skeletonberserker: {
+    magicResistance: 40,
+    flameResistance: 45,
+    lightningResistance: 50,
+    coldResistance: 55,
+    poisonResistance: 40,
+  },
+  skeletonarcher: {
+    magicResistance: 40,
+    flameResistance: 45,
+    lightningResistance: 50,
+    coldResistance: 55,
+    poisonResistance: 40,
+  },
+  skeletontemplar: {
+    magicResistance: 80,
+    flameResistance: 80,
+    lightningResistance: 80,
+    coldResistance: 80,
+    poisonResistance: 100,
+  },
+  skeletontemplar2: {
+    magicResistance: 100,
+    flameResistance: 80,
+    lightningResistance: 80,
+    coldResistance: 80,
+    poisonResistance: 80,
+  },
+  shaman: {
+    magicResistance: 60,
+    flameResistance: 60,
+    lightningResistance: 30,
+    coldResistance: 30,
+    poisonResistance: 30,
+  },
+  worm: {
+    magicResistance: 70,
+    flameResistance: 55,
+    lightningResistance: 60,
+    coldResistance: 60,
+    poisonResistance: 40,
+  },
+  skeletonscythe1: {
+    magicResistance: 60,
+    flameResistance: 40,
+    lightningResistance: 30,
+    coldResistance: 30,
+    poisonResistance: 30,
+  },
+  skeletonaxe1: {
+    magicResistance: 30,
+    flameResistance: 30,
+    lightningResistance: 30,
+    coldResistance: 30,
+    poisonResistance: 30,
+  },
+  skeletonaxe2: {
+    magicResistance: 30,
+    flameResistance: 75,
+    lightningResistance: 30,
+    coldResistance: 30,
+    poisonResistance: 30,
+  },
+  deathbringer: {
+    magicResistance: 100,
+    flameResistance: 100,
+    lightningResistance: 100,
+    coldResistance: 100,
+    poisonResistance: 100,
+  },
+  deathangel: {
+    magicResistance: 100,
+    flameResistance: 100,
+    lightningResistance: 100,
+    coldResistance: 100,
+    poisonResistance: 100,
+  },
+};
+
+const DefaultResistances: Resistances = {
+  magicResistance: 0,
+  flameResistance: 0,
+  lightningResistance: 0,
+  coldResistance: 0,
+  poisonResistance: 0,
+  spectralResistance: 0,
+};
+
+export const resistanceToDisplayMap = {
+  magicResistance: "magic",
+  flameResistance: "flame",
+  lightningResistance: "lightning",
+  coldResistance: "cold",
+  poisonResistance: "poison",
+  spectralResistance: "spectral",
+};
+
+export const enchantToDisplayMap = {
+  magic: "magic enchanted",
+  flame: "flame enchanted",
+  lightning: "lightning enchanted",
+  cold: "cold enchanted",
+  poison: "poison enchanted",
+  spectral: "spectral hit",
+  physical: "extra strong",
+  fast: "extra fast",
+  stoneskin: "stone skin",
+  "curse-health": "cursed (health)",
+  "curse-resistance": "cursed (resistance)",
+};
+
+const resistanceToLowerResistanceMap = {
+  magicResistance: "lowerMagicResistance",
+  flameResistance: "lowerFlameResistance",
+  lightningResistance: "lowerLightningResistance",
+  coldResistance: "lowerColdResistance",
+  poisonResistance: "lowerPoisonResistance",
+  spectralResistance: "lowerSpectralResistance",
+};
+
+export const elements: Elements[] = ["magic", "flame", "lightning", "cold", "poison", "spectral"];
+
+export const getRandomElement = (): Elements => _.shuffle(elements)[0];
+
+export const calculateResistance = (resistance: number, curseResistances = 0) => {
+  let calculatedResistances =
+    resistance - curseResistances > PLAYER_MAX_RESISTANCES ? PLAYER_MAX_RESISTANCES : resistance - curseResistances;
+
+  if (calculatedResistances < 0) {
+    calculatedResistances = 0;
+  }
+
+  return calculatedResistances;
+};
+
+export const calculateAttackSpeedCap = (rawAttackSpeed: number, weaponKind?: number) => {
+  let attackSpeedByWeight = 0;
+  let weight;
+
+  if (weaponKind) {
+    weight = getWeaponWeightbyKind(weaponKind);
+    attackSpeedByWeight = getAttackSpeedBonusFromStringMap[weight];
+  }
+
+  const attackSpeed = rawAttackSpeed + attackSpeedByWeight;
+  return attackSpeed > PLAYER_MAX_ATTACK_SPEED ? PLAYER_MAX_ATTACK_SPEED : attackSpeed;
+};
+
+export const calculateExtraGoldCap = (extraGold: number) =>
+  extraGold > PLAYER_MAX_EXTRA_GOLD ? PLAYER_MAX_EXTRA_GOLD : extraGold;
+
+export const calculateMagicFindCap = (magicFind: number) =>
+  magicFind > PLAYER_MAX_MAGIC_FIND ? PLAYER_MAX_MAGIC_FIND : magicFind;
+
+export const getResistance = (
+  mob: { kind: number; name: string; type: string; bonus: Resistances; resistances: Resistances },
+  attacker,
+) => {
+  let resistances = { ...DefaultResistances };
+
+  if (mob.type === "mob") {
+    resistances = Object.assign(resistances, mob.resistances || {});
+  } else if (mob.type === "player") {
+    resistances = {
+      magicResistance: mob.bonus.magicResistance,
+      flameResistance: mob.bonus.flameResistance,
+      lightningResistance: mob.bonus.lightningResistance,
+      coldResistance: mob.bonus.coldResistance,
+      poisonResistance: mob.bonus.poisonResistance,
+    };
+  }
+
+  if (attacker?.type === "player") {
+    resistances = calculateLowerResistances(resistances, attacker.bonus);
+  }
+
+  return resistances;
+};
+
+export const calculateLowerResistances = (resistances, bonus) => {
+  return Object.keys(resistances).reduce((acc, resistance) => {
+    acc[resistance] =
+      resistances[resistance] - (bonus[resistanceToLowerResistanceMap[resistance]] || 0) - bonus.lowerAllResistance;
+
+    if (acc[resistance] < 0) {
+      acc[resistance] = 0;
+    }
+
+    return acc;
+  }, {});
+};
