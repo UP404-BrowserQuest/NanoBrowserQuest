@@ -5,27 +5,29 @@ export const { REDIS_PORT, REDIS_HOST, REDIS_USERNAME, REDIS_PASSWORD, REDIS_DB_
 
 export let redisClient = null;
 export async function connectRedisInstance() {
-  // Construct the URL: redis://host:port
-  // Note: Internal hostnames on Render don't need passwords if configured that way, 
-  // but we'll include logic for both.
-  const auth = REDIS_PASSWORD ? `:${REDIS_PASSWORD}@` : "";
-  const redisUrl = `redis://${auth}${REDIS_HOST}:${REDIS_PORT}`;
-
-  console.log("~~~~~ Attempting to connect to:", `redis://***:***@${REDIS_HOST}:${REDIS_PORT}`);
+  const redisUrl = `redis://${REDIS_HOST}:${REDIS_PORT}`;
 
   redisClient = createClient({
     url: redisUrl,
     database: Number(REDIS_DB_INDEX) || 0,
     socket: {
-      connectTimeout: 10000,
+      // Internal Render networking can be slow to wake up
+      connectTimeout: 20000, 
+      keepAlive: 5000,
       reconnectStrategy: (retries) => Math.min(retries * 100, 3000)
     }
   });
 
   redisClient.on("error", err => console.log("Redis Client Error", err));
-  redisClient.on("connect", () => console.log("Connected to Redis server successfully!!"));
+  
+  // Use a try-catch here so the game doesn't crash if Redis is slow
+  try {
+      await redisClient.connect();
+      console.log("Connected to Redis server successfully!!");
+  } catch (e) {
+      console.error("CRITICAL: Redis connection failed!", e);
+  }
 
-  await redisClient.connect();
   return redisClient;
 }
 
