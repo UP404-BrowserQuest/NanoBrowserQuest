@@ -8,7 +8,7 @@
     "use_one_port": true,
     "redis_port": 6379,
     "prod_redis_port": 6379,
-    "redis_host": "red-d6neb7bh46gs73c9ejig",
+    "redis_host": "red-d6ntpb7kijhs739ss350",
     "game_servers": [{"server": "https://nanobrowserquest-0ki5.onrender.com", "name": "Nano Server"}],
     "server_name" : "https://nanobrowserquest-0ki5.onrender.com",
     "production": false,

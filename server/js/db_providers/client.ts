@@ -5,28 +5,27 @@ export const { REDIS_PORT, REDIS_HOST, REDIS_USERNAME, REDIS_PASSWORD, REDIS_DB_
 
 export let redisClient = null;
 export async function connectRedisInstance() {
-  const REDIS_OPTIONS = {
-    port: REDIS_PORT,
-    host: REDIS_HOST,
-    username: REDIS_USERNAME,
-    database: Number(REDIS_DB_INDEX),
-    ...(NODE_ENV !== "development" && REDIS_PASSWORD ? { password: REDIS_PASSWORD } : {}),
-  };
+  // Construct the URL: redis://host:port
+  // Note: Internal hostnames on Render don't need passwords if configured that way, 
+  // but we'll include logic for both.
+  const auth = REDIS_PASSWORD ? `:${REDIS_PASSWORD}@` : "";
+  const redisUrl = `redis://${auth}${REDIS_HOST}:${REDIS_PORT}`;
 
-  console.log("~~~~~REDIS_OPTIONS", REDIS_OPTIONS);
-  // Create a Redis client with the specified configuration options
-  redisClient = createClient(REDIS_OPTIONS);
+  console.log("~~~~~ Attempting to connect to:", `redis://***:***@${REDIS_HOST}:${REDIS_PORT}`);
 
-  // Properly handle connection errors
-  redisClient.on("error", err => console.log("Redis Client Error", err));
-
-  redisClient.on("connect", () => {
-    console.log("Connected to Redis server successfully!!");
+  redisClient = createClient({
+    url: redisUrl,
+    database: Number(REDIS_DB_INDEX) || 0,
+    socket: {
+      connectTimeout: 10000,
+      reconnectStrategy: (retries) => Math.min(retries * 100, 3000)
+    }
   });
 
-  // Connect to the Redis server
-  await redisClient.connect();
+  redisClient.on("error", err => console.log("Redis Client Error", err));
+  redisClient.on("connect", () => console.log("Connected to Redis server successfully!!"));
 
+  await redisClient.connect();
   return redisClient;
 }
 

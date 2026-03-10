@@ -5,40 +5,40 @@ const { BOT_TOKEN, NODE_ENV } = process.env;
 const isDevelopment = NODE_ENV === "development";
 
 const EventChannel =
-  "https://discord.com/api/webhooks/1092217096324268082/Rctr0jWNAaeAleyGOwXvH05hYJcTSeTrqGcUVVH7mnYZLeoFPeX9qbjVw2A9jvkuP_4w";
+  "https://discord.com/api/webhooks/1480857603591635046/6vDf29vEypnS3-b0wyD7GsaMeLABsBqQay7L2QLTh-CurRZ-Xdmhpa4_ybImfCPpMhUs";
 
 const ChatChannel =
-  "https://discord.com/api/webhooks/979056276589908008/yeov0D7OSvqNp7o6G6Kb6qbm7hB1EnegcnwKRRmr9y-zpe9O_YRb77jS6Fe0URRaJ3NC";
+  "https://discord.com/api/webhooks/1480857752896274525/t4HAI0TqydZlkvJR5y-ievq4188npHurbPg8uNhCqb7AlmYBG36IplHTpHoUrpzcS27d";
 
 const AnvilChannel =
-  "https://discord.com/api/webhooks/1029352905574207519/VWeXf_oqwL3MENHwpkUqTQozlsJ6H_ui_g5m8CJtYRwSQIGQ-fVByJCUQ6q69y-cCki2";
+  "https://discord.com/api/webhooks/1480857846202499105/_6lk1nbK1ckOtjXOXEvidbvdnK2_N_WBVgxUCUy4QUxf_B_m135au3Hi1QHmxM68Zj0q";
 
 const PurchaseChannel =
-  "https://discord.com/api/webhooks/1134147348721832047/BG-isyL2k2byxw3J1F5HRH2KpBMjXRIbN8xTibfCG0VjLAg0vN_ovAEpgik5hZqwhCTd";
+  "https://discord.com/api/webhooks/1480857567361241089/Ds_BtDPyj9Ni8Zl00vv3e5mhFAlq7gxVX6A8wmuH_RUTqx3f03uj-xCChbX8QDYYV1tH";
 
 const ModeratorSupportChannel =
-  "https://discord.com/api/webhooks/1149703440256217098/ycuYn6yn8y5Atb2ysdTltVzIzB7lmeS-KpGn5LTNmnyVumllHhCFY2scGXUvyBVp39SJ";
+  "https://discord.com/api/webhooks/1480858390732476497/_VoXBQPssYMEaHaKf_eQyN3oAj-0V7QdYyV0eFS4Dba5YVispY1z_TEf8YZjoIRSYyKk";
 
 const SupportChannel =
-  "https://discord.com/api/webhooks/1176896399661613136/vkPx-tGOP6IuMnH0ACbsJe-javz9MOMAorvp25BF6oDBMkBxbYIys4U2ACmsZgu6KjwQ";
+  "https://discord.com/api/webhooks/1480858496676397097/2FhhD8tcHGoACxga6G0PewEnbgmLxHJLASnz22VKB5A65LAVmwsIADbc9CXPnHcpL7tJ";
 
 const ModeratorDebugChannel =
-  "https://discord.com/api/webhooks/1157121578807611465/DPTTZrQspuKzO4rpQwOaYpy7HE95nRVIgKQe74MG0bT3QrqqAT_F6vyCgyvTBs7ngweY";
+  "https://discord.com/api/webhooks/1480858600191688764/pizkzlM0J1akx2gHBb2HKqweAz7eJg4_WK_s6xAexhi7xbpxd2EZBRXu9R_fHBgZ2lTq";
 
 const ModeratorMerchantChannel =
-  "https://discord.com/api/webhooks/1171768576814891028/MzT6FHXBEMwVLl9GrQH5by-bg8nKi4W9m_PG85CAIqDL84ehl5ibQxMiowJ1PdRO7VNA";
+  "https://discord.com/api/webhooks/1480858789816041636/1UiPrD8r86A4RLY9G4KyPAfK0D6lus15-IvrWan63SECHBjdmM6SCMeott_CtW5WmJdJ";
 
 const ModertorTradeChannel =
-  "https://discord.com/api/webhooks/1157379165922795662/KGEOmezA84--Kj7NppJPGkdVrPSjZh6KXlNWPMcg-hEwE4vfxxuO4pNq3oqSnPoPpOCW";
+  "https://discord.com/api/webhooks/1480859330835124294/k_ocIK21Je_FdLYLBZTjLwVe6BdJ3esT6exr6OIa-vCkilr8iymd6VU4yMMxRXDQ03nn";
 
 const WelcomeChannel =
-  "https://discord.com/api/webhooks/1167408881027264613/V-HBW-NpM8BGLdwGSwOYtGDPVfhwuvGUZ53cgW3DdswPYNfDcEBqssP46EENPUG9DS9g";
+  "https://discord.com/api/webhooks/1480859475458916424/BAwlegXERhaf7ZwsXuTgb9MPZu_AfOHG-Diu_ovPyRcXziSxy6zh8MPr7iBdvfg7wUQW";
 
 const payoutsChannel =
-  "https://discord.com/api/webhooks/1167688506315915404/nRYi5goDKK-1O_n2rCCKIEM2MVRvvDk4Um9vyPQH568B3Cyxb5_9r4XzlGDmLjTcakxS";
+  "https://discord.com/api/webhooks/1480859566932623412/nOQCQIs9EIC-uEmSly4ylISKCqeN2uBs2q0TEppDgSShEY49wIRMGiijYG9YGuYCc073";
 
 const questBotChannel =
-  "https://discord.com/api/webhooks/1200130228291375284/5SCgtXuIuzJlPmpiv8owGkmD7L2uDbUaI4dH_NPQsrxo7UTwMjHdr-IlgVbdXL42pUeR";
+  "https://discord.com/api/webhooks/1480859668061356123/FfBpS8kGtOUiIJW02jnz8Z3gV8nvxuSau57qbhU3jQPEYFpCuRaQrgiq-Wr60pwCnMmb";
 
 // For linking players with Discord
 export const discordClient = new Client({
@@ -50,7 +50,13 @@ export const discordClient = new Client({
   ],
 });
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
-discordClient.login(BOT_TOKEN);
+if (BOT_TOKEN) {
+  discordClient.login(BOT_TOKEN).catch((err) => {
+    console.error("[Discord] Failed to login with BOT_TOKEN:", err.message);
+  });
+} else {
+  console.warn("[Discord] BOT_TOKEN not found in environment. Bot features disabled.");
+}
 
 export const postMessageToDiscordEventChannel = (content: string) => {
   if (isDevelopment) return;
