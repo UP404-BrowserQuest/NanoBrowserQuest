@@ -6,10 +6,11 @@ import { Server as SocketServer } from "socket.io";
 
 import { random } from "./utils";
 
-const { NODE_ENV } = process.env;
+const { NODE_ENV, URL } = process.env;
 
 export class Server {
   port;
+  host;
   _connections = {};
   _counter = 0;
   connection_callback;
@@ -20,6 +21,7 @@ export class Server {
 
   constructor(port) {
     this.port = port;
+    this.host = process.env.URL || "localhost"; // Force it to grab the Render URL
     this.io = null;
 
     var self = this;
