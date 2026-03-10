@@ -222,7 +222,7 @@ class GameClient {
 console.info("Trying to connect to server : " + serverUrl);
 
 this.connection = null;
-this.connection = io(serverUrl, {
+this.connection = io("/", {
   transports: ['websocket'], // <--- CRITICAL: This fixes the 400 error
   upgrade: false,             // <--- Forces pure websockets
   reconnection: true,

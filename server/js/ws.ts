@@ -36,15 +36,19 @@ export class Server {
         "https://www.nanobrowserquest.com",
         "https://bananobrowserquest.com",
         "https://www.bananobrowserquest.com",
+        "https://nanobrowserquest-0ki5.onrender.com" // <--- ADD THIS LINE
       ];
       cors = {
         origin: function (origin, callback) {
-          if (whitelist.includes(origin)) {
+          // Allow requests with no origin (like mobile apps or curl) 
+          // or origins in the whitelist
+          if (!origin || whitelist.includes(origin)) {
             callback(null, true);
           } else {
             callback(new Error("Not allowed by CORS"));
           }
         },
+        credentials: true
       };
     }
 
