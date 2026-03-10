@@ -120,10 +120,19 @@ module.exports = {
         { from: "client/js/mapworker.js", to: "mapworker.js" },
       ],
     }),
+    const webpack = require('webpack'); // Make sure this line is at the top of the file!
+
+module.exports = {
+  // ... other config ...
+  plugins: [
     new webpack.DefinePlugin({
-    'process.env.URL': JSON.stringify(process.env.URL || 'nanobrowserquest-0ki5.onrender.com'),
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
-  }),
+      'process.env': JSON.stringify({}), // This provides a blank object so the error disappears
+      'process.env.URL': JSON.stringify('nanobrowserquest-0ki5.onrender.com'),
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    // ... other plugins ...
+  ],
+};
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "./client/index.html",
