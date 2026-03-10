@@ -217,15 +217,19 @@ class GameClient {
     var port = window.location.hostname === "localhost" ? ":8000" : "";
     var url = protocol + "://" + this.host + port + "/";
 
-    console.info("Trying to connect to server : " + url);
+    const serverUrl = window.location.origin; 
 
-    this.connection = null;
-    this.connection = io(url, {
-      reconnection: true,
-      reconnectionDelay: 1000,
-      reconnectionDelayMax: 3000,
-      reconnectionAttempts: 5,
-    });
+console.info("Trying to connect to server : " + serverUrl);
+
+this.connection = null;
+this.connection = io(serverUrl, {
+  transports: ['websocket'], // <--- CRITICAL: This fixes the 400 error
+  upgrade: false,             // <--- Forces pure websockets
+  reconnection: true,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 3000,
+  reconnectionAttempts: 5,
+});
     if (dispatcherMode) {
       this.connection.on("message", e => {
         var reply = JSON.parse(e.data);
