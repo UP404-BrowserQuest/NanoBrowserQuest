@@ -9,8 +9,9 @@ const TerserPlugin = require("terser-webpack-plugin");
 const WebpackObfuscator = require("webpack-obfuscator");
 
 const isDev = process.env.NODE_ENV === "development";
+
 module.exports = {
-  mode: process.env.NODE_ENV,
+  mode: process.env.NODE_ENV || "production",
   entry: {
     vendor: ["jquery", "bignumber.js"],
     app: "./client/js/index.ts",
@@ -46,7 +47,6 @@ module.exports = {
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: "vendors",
-              // chunks: "all",
             },
           },
         },
@@ -101,11 +101,17 @@ module.exports = {
     extensions: [".ts", ".js", ".json"],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+      'process.env.URL': JSON.stringify('nanobrowserquest-0ki5.onrender.com'),
+      // This part ensures 'process' exists in the browser to prevent the ReferenceError
+      'process': JSON.stringify({ env: { NODE_ENV: 'production' } })
+    }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
       jquery: "jquery",
-      "window.jQuery": "jquery'",
+      "window.jQuery": "jquery",
       "window.$": "jquery",
     }),
     new MiniCssExtractPlugin({
@@ -120,19 +126,6 @@ module.exports = {
         { from: "client/js/mapworker.js", to: "mapworker.js" },
       ],
     }),
-    const webpack = require('webpack'); // Make sure this line is at the top of the file!
-
-module.exports = {
-  // ... other config ...
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': JSON.stringify({}), // This provides a blank object so the error disappears
-      'process.env.URL': JSON.stringify('nanobrowserquest-0ki5.onrender.com'),
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-    // ... other plugins ...
-  ],
-};
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "./client/index.html",
