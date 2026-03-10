@@ -121,9 +121,9 @@ module.exports = {
       ],
     }),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-      "process.env.SENTRY_DNS": JSON.stringify(process.env.SENTRY_DNS),
-    }),
+    'process.env.URL': JSON.stringify(process.env.URL || 'nanobrowserquest-0ki5.onrender.com'),
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+  }),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "./client/index.html",
