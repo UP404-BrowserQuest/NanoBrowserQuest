@@ -24,6 +24,8 @@ export class Server {
     this.host = process.env.URL || "localhost"; // Force it to grab the Render URL
     this.io = null;
 
+    console.log(`[nano] WEBSOCKET - ${this.host}`);
+
     var self = this;
 
     const app = express();
