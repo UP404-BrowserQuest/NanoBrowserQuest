@@ -1302,7 +1302,7 @@ class GameClient {
   }
 
   sendLogin({ name, account = "", password = "" }) {
-  // Adds armor "1", weapon "1", helmet "0", shield "0"
+  // We send extra "0" strings to prevent the server from crashing on missing equipment
   this.sendMessage([Types.Messages.LOGIN, name, account, password, "1", "1", "0", "0"]);
   }
   sendAccount(account) {
