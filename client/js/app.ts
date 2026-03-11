@@ -324,12 +324,15 @@ class App {
     if (username && !this.game.started) {
       this.game.setPlayerAccount({ username, account, network, password });
 
-    let config = { host: window.location.hostname, port: "" };
+      let config = { 
+      host: window.location.hostname, 
+      port: "" 
+      };
 
     if (process.env.NODE_ENV !== "development") {
       config.host = window.location.hostname;
-      // On Render, WSS usually goes through the standard 443 port even if the app listens on 10000 internally
-      config.port = window.location.protocol === 'https:' ? 443 : 80;
+      // Wrap the port in String() so TS doesn't complain
+      config.port = window.location.protocol === 'https:' ? "443" : "80";
     }
       this.game.setServerOptions(config.host, config.port);
 
