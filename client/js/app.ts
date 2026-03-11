@@ -330,9 +330,10 @@ class App {
       };
 
     if (process.env.NODE_ENV !== "development") {
-      config.host = window.location.hostname;
-      // Wrap the port in String() so TS doesn't complain
-      config.port = window.location.protocol === 'https:' ? "443" : "80";
+    config.host = window.location.hostname;
+      // Use an empty string for production. 
+      // This lets Socket.io automatically use the current window's port (443).
+      config.port = ""; 
     }
       this.game.setServerOptions(config.host, config.port);
 

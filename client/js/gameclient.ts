@@ -223,10 +223,11 @@ console.info("Trying to connect to server : " + serverUrl);
 
 this.connection = null;
 // Use this for the most stable connection on Render
-this.connection = io("/", { 
+  const url = port ? `${host}:${port}` : host; 
+  this.connection = io(url, {
   transports: ['websocket'],
   reconnection: true
-});
+    });
     if (dispatcherMode) {
       this.connection.on("message", e => {
         var reply = JSON.parse(e.data);
