@@ -324,14 +324,13 @@ class App {
     if (username && !this.game.started) {
       this.game.setPlayerAccount({ username, account, network, password });
 
-      let config = { host: "localhost", port: 8000 };
-      if (process.env.NODE_ENV !== "development") {
-        config = { host: "", port: 8000 };
+      let config = { host: window.location.hostname, port: 8000 }; // Default
 
-        if (window.location.host.endsWith("bananobrowserquest.com")) {
-          config.host = window.location.host.replace("ba", "");
-        }
-      }
+    if (process.env.NODE_ENV !== "development") {
+    // This tells the client to connect to your Render URL
+    config.host = window.location.hostname;
+    config.port = (window.location.protocol === 'https:') ? 443 : 80; 
+    }
       this.game.setServerOptions(config.host, config.port);
 
       if (!self.isDesktop) {

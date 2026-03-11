@@ -1296,13 +1296,14 @@ this.connection = io("/", {
   }
 
   sendCreate({ name, account = "", password = "" }) {
-    this.sendMessage([Types.Messages.CREATE, name, account, password]);
+  // Adds armor "1", weapon "1", helmet "0", shield "0"
+  this.sendMessage([Types.Messages.CREATE, name, account, password, "1", "1", "0", "0"]);
   }
 
   sendLogin({ name, account = "", password = "" }) {
-    this.sendMessage([Types.Messages.LOGIN, name, account, password]);
+  // Adds armor "1", weapon "1", helmet "0", shield "0"
+  this.sendMessage([Types.Messages.LOGIN, name, account, password, "1", "1", "0", "0"]);
   }
-
   sendAccount(account) {
     this.sendMessage([Types.Messages.ACCOUNT, account]);
   }
