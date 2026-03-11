@@ -335,8 +335,8 @@ class GameClient {
     return encodedMsg;
   }
   sendMessage(json) {
-    if (this.connection.connected === true) {
-      const secret = "f4c10471-09cb-49e6-a816-7510677926bc";
+    if (this.connection && this.connection.connected === true) {
+    const secret = "f4c10471-09cb-49e6-a816-7510677926bc";
 
       const sentmessage = {
         action: json[0],
@@ -345,9 +345,9 @@ class GameClient {
         params: [json[1], json[2], json[3], json[4], json[5]],
       };
 
-      const encryptedMessage = this.signMessage(sentmessage, secret);
+      const encryptedMessage = CryptoJS.AES.encrypt(JSON.stringify(json), secret).toString();
 
-      this.connection.send(encryptedMessage);
+      this.connection.emit("message", encryptedMessage);
     }
   }
 
