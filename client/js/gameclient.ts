@@ -1301,8 +1301,9 @@ class GameClient {
   this.sendMessage([Types.Messages.CREATE, name, account, password, "1", "1", "0", "0"]);
   }
 
-  sendLogin({ name, account = "", password = "" }) {
-  // We send extra "0" strings to prevent the server from crashing on missing equipment
+  sendLogin(name, account, password) {
+  // Array: [Action, Name, Account, Password, Armor, Weapon, Helmet, Shield]
+  // We add the "0" strings to prevent the server from crashing on missing equipment.
   this.sendMessage([Types.Messages.LOGIN, name, account, password, "1", "1", "0", "0"]);
   }
   sendAccount(account) {
