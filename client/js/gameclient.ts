@@ -213,20 +213,20 @@ class GameClient {
   }
 
   connect(dispatcherMode) {
-    var protocol = window.location.hostname === "localhost" ? "ws" : "wss";
-    var port = window.location.hostname === "localhost" ? ":8000" : "";
-    var url = protocol + "://" + this.host + port + "/";
+    // 1. Determine the correct protocol (wss for Render, ws for local)
+    const protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+    
+    // 2. Build the connection string using class properties (this.host, this.port)
+    // If port is empty (Render), it just uses the host.
+    const connectionUrl = this.port ? `${this.host}:${this.port}` : this.host;
 
-    const serverUrl = window.location.origin; 
+    console.info("Trying to connect to server: " + protocol + connectionUrl);
 
-console.info("Trying to connect to server : " + serverUrl);
-
-this.connection = null;
-// Use this for the most stable connection on Render
-  const url = port ? `${host}:${port}` : host; 
-  this.connection = io(url, {
-  transports: ['websocket'],
-  reconnection: true
+    // 3. Initialize the connection
+    this.connection = io(protocol + connectionUrl, {
+      transports: ['websocket'],
+      reconnection: true,
+      upgrade: false // Recommended for Render to prevent polling errors
     });
     if (dispatcherMode) {
       this.connection.on("message", e => {
