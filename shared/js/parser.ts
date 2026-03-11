@@ -7,8 +7,8 @@ const key = 133;
 
 class Encoder {
   encode(packet) {
-    // return [this.cryptr.encrypt(JSON.stringify(packet))];
-    return [CryptoJS.AES.encrypt(JSON.stringify(packet), `@todo-define-secret${key}`).toString()];
+  // Replace the @todo line with a solid string
+  return [CryptoJS.AES.encrypt(JSON.stringify(packet), "MyHSecret123").toString()];
   }
 }
 
